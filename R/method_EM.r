@@ -902,7 +902,7 @@ em_converged <- function(loglik = NULL, previous_loglik = NULL, threshold = NULL
   
   converged <- 0
   decrease <- 0
-  
+  if(!is.na(loglik) && !is.na(previous_loglik)) {
   if(!is.null(check_increased)){
     if(loglik - previous_loglik < -1e-3){ # allow for a little imprecision
       message(paste("******likelihood decreased from",round(previous_loglik,4),"to",round(loglik,4)))
@@ -914,7 +914,7 @@ em_converged <- function(loglik = NULL, previous_loglik = NULL, threshold = NULL
   avg_loglik <- (abs(loglik) + abs(previous_loglik) + 2.2204e-16)/2
   
   if((delta_loglik / avg_loglik) < threshold){converged <- 1}
-  
+  }
   # output
   list(converged = converged, decrease = decrease)
   
